@@ -58,8 +58,10 @@ public class Camera extends Subsystem implements Runnable
 		
 		try
 		{
+			// Make sure the directory that will hold the data files exists:
 			new File(dataDirectory).mkdirs();
 			
+			// Dump the supported video modes to a file:
 			PrintWriter pw = new PrintWriter(videoModesFile);
 			NIVision.dxEnumerateVideoModesResult result = NIVision.IMAQdxEnumerateVideoModes(session);
 			pw.println("Current: \"" + result.videoModeArray[result.currentMode].Name + '"');
@@ -70,6 +72,7 @@ public class Camera extends Subsystem implements Runnable
 			}
 			pw.close();
 			
+			// Dump the supported vision attributes to a file:
 			NIVision.IMAQdxWriteAttributes(session, visionAttributesFile);
 		}
 		catch (Exception ex)
